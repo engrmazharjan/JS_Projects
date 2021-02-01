@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        h1{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        body{
+            width: 640px;
+            margin: 0 auto;
+        }
+        .full-img{
+            position: relative;
+            display: block;
+            width: 640px;
+            height: 480px;
+        }
+        .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 640px;
+            height: 480px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        button{
+            background: rgba(150, 150, 150, 0.6);
+            text-shadow: 1px 1px 1px white;
+            border: 1px solid #999;
+            position: absolute;
+            cursor: pointer;
+            top: 2px;
+            left: 2px;
+        }
+        .thumb-bar img{
+            display: block;
+            width: 20%;
+            float: left;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Gallery Example</h1>
+    
+    <div class="full-img">
+        <img src="images/pic1.jpg" alt="" class="displayed-img">
+        <div class="overlay"></div>
+        <button class="dark">Darken</button>
+    </div>
+    <div class="thumb-bar"></div>
+    
+
+    <script>
+        const displayedImage = document.querySelector('.displayed-img');
+        const thumbBar = document.querySelector('.thumb-bar');
+
+        const btn = document.querySelector('button');
+        const overlay = document.querySelector('.overlay');
+
+        // Looping Through Images
+        for(let i=1; i<=5; i++){
+            const newImage = document.createElement('img');
+            newImage.setAttribute('src', 'images/pic' + i + '.jpg');
+            thumbBar.appendChild(newImage);
+
+            newImage.onclick = function(e){
+                displayedImage.src = e.target.src;
+            }
+        }
+
+        // Wiring up the Darken/Lighten button
+        btn.onclick = function(){
+            const btnClass = btn.getAttribute('class');
+            if (btnClass === 'dark') {
+                btn.setAttribute('class', 'light');
+                btn.textContent = 'Lighten';
+                overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';   
+            }else{
+                btn.setAttribute('class', 'dark');
+                btn.textContent = 'Darken';
+                overlay.style.backgroundColor = 'rgba(0,0,0,0)';
+            }
+        }      
+    </script>
+</body>
+</html>

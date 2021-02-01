@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Change The Colors Of All Buttons</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Challenge_1/CSS/Your_Age_In_days.css">
+
+    <!--CSS For Change The Colors Of All Buttons-->
+    <style type="text/css">
+    	.container{
+    		border: 1px solid black;
+    		width: 75%;
+    		margin: 0 auto;
+    		text-align: center;
+    	}
+    	.flex-box-pick-color{
+    		display: flex;
+    		border: 1px solid black;
+    		padding: 10px;
+    		flex-wrap: wrap;
+    		flex-direction: row;
+    		justify-content: space-around;
+    	}
+    	
+    </style>
+</head>
+<body>
+	<!--HTML For Change The Colors Of All Buttons-->
+	<div class="container">
+		<h2>Change The Color Of All Buttons</h2>
+		<div class="flex-box-pick-color">
+			<form action="">
+				<select name="backdrop" id="background" onchange="buttonColorChange(this)">
+					<option value="random">Random</option>
+					<option value="green">Green</option>
+					<option value="red">Red</option>
+					<option value="reset">Reset</option>
+				</select>
+			</form>
+			<button class="btn btn-primary">WhatsaApp</button>
+			<button class="btn btn-danger">Twiter</button>
+			<button class="btn btn-warning">Instagram</button>
+			<button class="btn btn-success">Facebook</button>
+		</div>
+	</div>
+
+
+
+	<!--JavaScript For Change The Colors Of All Buttons-->
+	<script type="text/javascript">
+		let allButtons = document.getElementsByTagName('button');
+		console.log(allButtons);
+
+		// make a copy of all buttons. we would need it later in reset() function
+		let copyAllButtons = [];
+		for(let i=0; i<allButtons.length; i++){
+			copyAllButtons.push(allButtons[i].classList[1]);
+		} 
+		console.log(copyAllButtons);
+
+
+
+		// Main function for changing colors of all buttons
+		function buttonColorChange(buttonThingy) {
+			// body...
+			if (buttonThingy.value === 'random') {
+				randomColors();
+			} else if (buttonThingy.value === 'green') {
+				buttonGreen();
+			} else if (buttonThingy.value === 'red') {
+				buttonRed();
+			} else if (buttonThingy.value === 'reset') {
+				buttonColorReset();
+			}
+		}
+
+
+
+
+		// function to randomly change colors of all buttons
+		function randomColors() {
+			// body...
+			let choices = ['btn-primary', 'btn-success', 'btn-danger', 'btn-warning'];
+
+			for(let i=0; i<allButtons.length; i++){
+				let randomNumber = Math.floor(Math.random() * 4);
+				allButtons[i].classList.remove(allButtons[i].classList[1]);
+				allButtons[i].classList.add(choices[randomNumber]);
+			}
+		}
+
+
+
+
+		// function to set colors of all buttions to green
+		function buttonGreen() {
+			// body...
+			for(let i=0; i<allButtons.length; i++){
+				allButtons[i].classList.remove(allButtons[i].classList[1]);
+				allButtons[i].classList.add('btn-success');
+			}
+		}
+
+
+
+		// function to set colors of all buttions to red
+		function buttonRed() {
+			// body...
+			for(let i=0; i<allButtons.length; i++){
+				allButtons[i].classList.remove(allButtons[i].classList[1]);
+				allButtons[i].classList.add('btn-danger');
+			}
+		}
+
+
+
+
+		// function to set colors of all buttons back to original/ reset button's color
+		function buttonColorReset() {
+			// body...
+			for(let i=0; i<allButtons.length; i++){
+				allButtons[i].classList.remove(allButtons[i].classList[1]);
+				allButtons[i].classList.add(copyAllButtons[i]);
+			}
+		}
+
+
+	</script>
+
+</body>
+</html>

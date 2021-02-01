@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock Paper Scissors</title>
+	<!--CSS For Rock, Paper, Scissors-->
+	<style type="text/css">
+		.container{
+			border: 1px solid black;
+			width: 75%;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.flex-box-rps{
+			display: flex;
+			border: 1px solid black;
+			padding: 10px;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+		.flex-box-rps img:hover{
+			box-shadow: 0px 10px 50px rgba(37, 58, 233, 1);
+		}
+	</style>
+</head>
+<body>
+	<!--HTML For Rock, Paper, Scissors-->
+	<div class="container">
+		<h2>Challenge 3: Rock, Paper, Scissors</h2>
+		<div class="flex-box-rps" id="flex-box-rps-div">
+			<img src="Images/rock.png" id="rock" height="150px" width="150px" alt="" onclick="rpsGame(this)">
+			<img src="Images/paper.png" id="paper" height="150px" width="150px" alt="" onclick="rpsGame(this)">
+			<img src="Images/scissors.png" id="scissors" height="150px" width="150px" alt="" onclick="rpsGame(this)">
+		</div>
+	</div>
+
+
+	<!--JavaScript For Rock, Paper, Scissors-->
+	<script type="text/javascript">
+		// Main Function for the Game 
+		function rpsGame(yourChoice){
+			// console will log human choice if it is Rock, Paper or Scissors
+      		// this console will give complete img tag with all information about Rock, Paper, Scissors
+			console.log(yourChoice);
+
+			// create two variables to hold Human Choiuce and Bot Choice
+			let humanChoice, botChoice;
+			humanChoice = yourChoice.id;// id of either Rock, Paper, Scissors that we choose
+			
+			botChoice = numberToChoice(randToRpsInt()); // bot choice will be a random choice generated with random number.
+			console.log('Computer Choice: ', botChoice); 
+
+			// This will decide who wins
+			let results = decideWinner(humanChoice, botChoice); // [1, 0][0, 1][0.5, 0.5]
+			console.log(results);
+
+			//{'message': 'You Win!', 'color': 'green'} OR {'message': 'You Lost!', 'color': 'Red'} OR {'message': 'You Tied!', 'color': 'Yellow'};
+			let message = finalMessage(results);
+			console.log(message);
+
+			// to show the actuall things in front end that user actally see
+			rpsFrontEnd(yourChoice.id, botChoice, message);
+		}
+
+
+
+		// Random Number Generate Function--> 0 1 2
+		function randToRpsInt(){
+			return Math.floor(Math.random() * 3);
+		}
+
+
+		// function for Bot to generate Rock, Paper, Scissors randomly
+		// i.e if we choose Rock then Bot can choose Rock,Paper,Scissors 
+		// Randomly and so on. 
+		function numberToChoice(number){
+			return ['rock', 'paper', 'scissors'][number];
+		}
+
+
+		// Function to decide who Wins or who loose or if Tied
+		// rock, paper, scissors are my options
+		// if I choose rock and bot choose scissors I win, and if bot also
+		// choose rock then we ties and if bot choose paper then bot wins 
+		function decideWinner(yourChoice, botChoice){
+			let rpsDatabase = {
+				'rock':{'scissors': 1, 'rock': 0.5, 'paper': 0},
+				'paper':{'rock': 1, 'paper': 0.5, 'scissors': 0},
+				'scissors':{'paper': 1, 'scissors': 0.5, 'rock': 0},
+			}
+			let yourScore = rpsDatabase[yourChoice][botChoice];
+			let computerScore = rpsDatabase[botChoice][yourChoice];
+			return [yourScore, computerScore];
+		}
+
+
+		// Finaal Message to display if someone win, lose, or both tie
+		function finalMessage([yourScore, computerScore]){
+			if (yourScore === 0) {
+				return {'message': ' You Lost!', 'color': 'Red'};
+			} else if (yourScore === 0.5) {
+				return {'message': 'You Tied!', 'color': 'Grey'};
+			} else {
+				return {'message': 'You Win', 'color': 'Green'};
+			}
+		}
+
+
+
+		// function that display the actual choice and 
+		// message according to that choice on web page
+		function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage){
+			let imagesDatabase = {
+				'rock': document.getElementById('rock').src,
+				'paper': document.getElementById('paper').src,
+				'scissors': document.getElementById('scissors').src,
+			}
+
+			// remove all images so that we can display our resultant images  
+			document.getElementById('rock').remove();
+			document.getElementById('paper').remove();
+			document.getElementById('scissors').remove();
+
+			// create three divs each for Human Bot and one for Message to display
+			let humanDiv = document.createElement('div');
+			let botDiv = document.createElement('div');
+			let messageDiv = document.createElement('div');
+
+			// get source of humanDiv, botDiv, and MessageDiv and display in flex-box-rps-div
+			humanDiv.innerHTML = "<img src = '" + imagesDatabase[humanImageChoice] + "'height=150 width=150 style='box-shadow: 0px 10px 50px rgba(37, 50, 233, 1);'>";
+			messageDiv.innerHTML = "<h1 style='color:" + finalMessage['color'] + ";front-size:60px; padding:30px'>" + finalMessage['message'] + "</h1>";
+			botDiv.innerHTML = "<img src='" + imagesDatabase[botImageChoice] + "'height=150px width150px style='box-shadow: 0px 10px 50px rgba(243,38,24,1);'>";
+
+			// append above 3 divs to flex-box-rps-div
+			document.getElementById('flex-box-rps-div').appendChild(humanDiv);
+			document.getElementById('flex-box-rps-div').appendChild(messageDiv);
+			document.getElementById('flex-box-rps-div').appendChild(botDiv);
+		}
+	</script>
+
+</body>
+</html>

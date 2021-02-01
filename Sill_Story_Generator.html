@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Story Generator</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            width: 350px;
+        }
+        label{
+            font-weight: bold;
+        }
+        div{
+            padding-bottom: 20px;
+        }
+        input[type='text']{
+            padding: 5px;
+            width: 150;
+        }
+        p{
+            background: #FFC125;
+            color: #5E2612;
+            padding: 10px;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="custom-name">Enter Custom Name:</label>
+        <input type="text" name="name" id="custom-name">
+    </div>
+    <div>
+        <label for="us">US</label><input type="radio" name="usuk" id="us" checked>
+        <label for="uk">UK</label><input type="radio" name="usuk" id="uk" >
+    </div>
+    <div>
+        <button class="randomize">Generate Random Story</button>
+    </div>
+
+    <p class="story"></p>
+
+
+    <script>
+        // Complete Variable and Function Definitions
+
+        // reference to input, button and paragraph
+        const customName = document.getElementById('custom-name');
+        const randomize = document.querySelector('.randomize');
+        const story = document.querySelector('.story');
+
+
+        function randomValueFromArray(array){
+            random = Math.floor(Math.random() * array.length);
+            return array[random];
+        }
+
+        // Raw Text Strings
+        let storyText = `It was 94 fahrenheit outside, so :insertx: went for a walk.
+        When they got to :inserty:, they started in horror for a few moments, then :insertz:.
+        Bob saw the whole thing, but was not surprised - :insertx: weighs 300 pounds, and it was a
+        hot day.`;
+        let insertX = ['Willy the Goblin', 'Big Daddy', 'Father Christmas'];
+        let insertY = ['the coup kitchen', 'Disneyland', 'the White House'];
+        let insertZ = ['spontaneously combusted', 'melted into a puddle on the sidewalk',
+        'turned into a slug and crawled away'];
+
+        // Event Listener and Result Function
+        randomize.addEventListener('click', result);
+
+        function result(){
+
+            let newStory = storyText; // each time button is pressed new story will be generated
+
+            let xItem = randomValueFromArray(insertX);
+            let yItem = randomValueFromArray(insertY);
+            let zItem = randomValueFromArray(insertZ);
+
+            newStory = newStory.replace(/:insertx:/g, xItem);
+            newStory = newStory.replace(':inserty:', yItem);
+            newStory = newStory.replace(':insertz:', zItem);
+
+            if (customName.value !== '') {
+                let name = customName.value;
+                newStory = newStory.replace('Bob', name);
+            }
+            if (document.getElementById('uk').checked) {
+                let weight = Math.round(300 * 0.071428571428571) + ' stone';
+                let temperature = Math.round((94 - 32) * 5/9) + ' centigrade';
+                newStory = newStory.replace('94 fahrenheit', temperature);
+                newStory = newStory.replace('300 pounds', weight);
+            }
+            story.textContent = newStory;
+            story.style.visibility = 'visible';
+        }
+    </script>
+</body>
+</html>

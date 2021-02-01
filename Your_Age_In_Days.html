@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Your Age in Days</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!--CSS For Your Age in Days-->
+	<style type="text/css">
+		.container{
+			border: 1px solid black;
+			width: 75%;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.flex-box-container{
+			display: flex;
+			border: 1px solid black;
+			padding: 10px;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+		.flex-box-container div{
+			display: flex;
+			padding: 10px;
+			border: 5px solid black;
+			text-align: center;
+		}
+		
+	</style>
+</head>
+<body>
+	<!--HTML For Your Age in Days-->
+	<div class="container">
+		<h2>Your Age In Days</h2>
+		<div class="flex-box-container">
+			<div>
+				<button class="btn btn-primary" onclick="ageInDays()">CLick Me</button>
+			</div>
+			<div>
+				<button class="btn btn-danger" onclick="reset()">Reset</button>
+			</div>
+		</div>
+		<div class="flex-box-container">
+			<div id="flex-box-result"></div>
+		</div>
+	</div>
+
+
+	<!--JavaScript For Your Age in Days-->
+	<script type="text/javascript">
+		function ageInDays() {
+			// body...
+			let birthYear = Number(prompt('What Year Were You Born?'));
+			let daysOfAge = (2021 - birthYear) * 365;
+			let h1 = document.createElement('h1');
+			let textAnswer = document.createTextNode(`You Are ${daysOfAge} Years Old.`);
+			h1.setAttribute('id', 'daysOfAge');
+			h1.appendChild(textAnswer);
+			document.getElementById('flex-box-result').appendChild(h1);
+		}
+
+		// reset function
+		function reset() {
+			// body...
+			document.getElementById('daysOfAge').remove();
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cat Generator</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="Challenge_1/CSS/Your_Age_In_days.css">
+
+	<!--HTML For Cat Generator-->
+	<style type="text/css">
+		.container{
+			border: 1px solid black;
+			width: 75%;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.flex-box-container{
+			display: flex;
+			border: 1px solid black;
+			padding: 10px;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+		.flex-box-container img{
+			margin: 10px;
+			box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.7);
+		}
+	</style>
+</head>
+<body>
+	<!--HTML For Cat Generator-->
+	<div class="container">
+		<h2>Cat Generator</h2>
+		<button class="btn btn-success" id="cat-generator" onclick="generateCat()">Cat Generator</button>
+		<div class="flex-box-container" id="flex-cat-gen"></div>
+	</div>
+		
+	
+
+	<!--JavaScript For Cat Generator-->
+	<script type="text/javascript">
+		function generateCat() {
+			// body...
+			let image = document.createElement('img');
+			let div = document.getElementById('flex-cat-gen');
+			image.src = 'http://thecatapi.com/api/images/get?format=src&type=gif&size=small';
+			div.appendChild(image);
+		}
+	</script>
+
+</body>
+</html>
